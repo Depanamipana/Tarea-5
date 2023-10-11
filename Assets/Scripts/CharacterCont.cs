@@ -11,6 +11,8 @@ public class CharacterCont : MonoBehaviour{
     private Vector3 newCameraRotation;
     private Vector3 newPlayerRotation;
 
+    private float fallingSpeed;
+
     private CharacterController controllerComp;
 
     [Header ("References")]
@@ -24,6 +26,7 @@ public class CharacterCont : MonoBehaviour{
 
         input.Character.Movement.performed += e => rawMove = e.ReadValue<Vector2>();
         input.Character.View.performed += e => rawView = e.ReadValue<Vector2>();
+        input.Character.Jump.performed += e => Jump();
 
         input.Enable();
 
@@ -38,11 +41,27 @@ public class CharacterCont : MonoBehaviour{
     }
 
     private void CalcuteMovement(){
-        float forwardSpd = settings.forwardSpd * rawMove.y * Time.deltaTime;
+        float forwardSpd;
+        if (rawMove.y >= 0){
+            forwardSpd = settings.forwardSpd * rawMove.y * Time.deltaTime;
+        }else{
+            forwardSpd = settings.backwardsSpd *rawMove.y * Time.deltaTime;
+        }
         float horizontalSpd = settings.strafeSpd * rawMove.x * Time.deltaTime;
 
         Vector3 newMoveSpeed = new Vector3(horizontalSpd,0,forwardSpd);
         newMoveSpeed = transform.TransformDirection(newMoveSpeed);
+
+        if (fallingSpeed > settings.terminalVelocity){
+            fallingSpeed -= settings.gravity * Time.deltaTime;
+        }else{
+            fallingSpeed = settings.terminalVelocity;
+        }
+
+        if(fallingSpeed < -0.01f && controllerComp.isGrounded){
+            fallingSpeed = -0.01f;
+        }
+        newMoveSpeed.y += fallingSpeed;
 
         controllerComp.Move(newMoveSpeed);
     }
@@ -62,5 +81,16 @@ public class CharacterCont : MonoBehaviour{
 
         transform.localRotation = Quaternion.Euler(newPlayerRotation);
         cameraHolder.localRotation = Quaternion.Euler(newCameraRotation);
+    }
+
+    //when jump stuff pressed
+    private void Jump(){
+        //don't jump
+        if(!controllerComp.isGrounded){
+            return;
+        }else{
+            fallingSpeed = settings.jumpForce;
+        }
+        //jump
     }
 }

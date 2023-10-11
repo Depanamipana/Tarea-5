@@ -18,6 +18,12 @@ public static class Models{
         public float forwardSpd;
         public float strafeSpd;
         public float backwardsSpd;
+        [Header("Gravity")]
+        public float terminalVelocity;
+        public float gravity;
+        [Header("Jump")]
+        public float jumpForce;
+
     }
     #endregion
 }

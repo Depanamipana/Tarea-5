@@ -1,5 +1,5 @@
 {
-    "name": "Input",
+    "name": "InputLib",
     "maps": [
         {
             "name": "Character",
@@ -19,6 +19,15 @@
                     "type": "PassThrough",
                     "id": "83c30513-ff13-4a24-a380-801e25800878",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "ef389d8f-8408-4dac-80f1-0a1292960ee0",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -88,6 +97,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "View",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1008be16-2e39-4415-81fd-df6b30867c87",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
