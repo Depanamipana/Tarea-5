@@ -15,6 +15,7 @@ public static class Models{
         public float yClampMax;
         public float yClampMin;
         [Header("Movement Speeds")]
+        public float sprintFactor;
         public float forwardSpd;
         public float strafeSpd;
         public float backwardsSpd;

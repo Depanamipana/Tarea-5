@@ -5,8 +5,9 @@ using static Models;
 
 public class CharacterCont : MonoBehaviour{
     private InputLib input;
-    public Vector2 rawMove;
-    public Vector2 rawView;
+    private Vector2 rawMove;
+    private Vector2 rawView;
+    private float rawSprint;
 
     private Vector3 newCameraRotation;
     private Vector3 newPlayerRotation;
@@ -36,18 +37,25 @@ public class CharacterCont : MonoBehaviour{
     }
 
     private void Update(){
+        rawSprint = input.Character.Sprint.ReadValue<float>();
         CalculateView();
         CalcuteMovement();
     }
 
     private void CalcuteMovement(){
         float forwardSpd;
-        if (rawMove.y >= 0){
-            forwardSpd = settings.forwardSpd * rawMove.y * Time.deltaTime;
+        float sprint;
+        if (rawSprint == 1){
+            sprint = settings.sprintFactor;
         }else{
-            forwardSpd = settings.backwardsSpd *rawMove.y * Time.deltaTime;
+            sprint = 1;
         }
-        float horizontalSpd = settings.strafeSpd * rawMove.x * Time.deltaTime;
+        if (rawMove.y >= 0){
+            forwardSpd = settings.forwardSpd * rawMove.y * Time.deltaTime * sprint;
+        }else{
+            forwardSpd = settings.backwardsSpd *rawMove.y * Time.deltaTime * sprint;
+        }
+        float horizontalSpd = settings.strafeSpd * rawMove.x * Time.deltaTime * sprint;
 
         Vector3 newMoveSpeed = new Vector3(horizontalSpd,0,forwardSpd);
         newMoveSpeed = transform.TransformDirection(newMoveSpeed);

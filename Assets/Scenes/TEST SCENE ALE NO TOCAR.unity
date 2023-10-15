@@ -1424,7 +1424,6 @@ GameObject:
   - component: {fileID: 1996160360}
   - component: {fileID: 1996160359}
   - component: {fileID: 1996160358}
-  - component: {fileID: 1996160357}
   - component: {fileID: 1996160356}
   - component: {fileID: 1996160361}
   m_Layer: 0
@@ -1451,20 +1450,6 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &1996160357
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996160355}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.29
-  m_Height: 2
-  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1996160358
 MeshRenderer:
@@ -1524,7 +1509,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996160355}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.36, y: 9.61, z: 1.05}
+  m_LocalPosition: {x: 4.36, y: 3.26, z: 1.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1544,8 +1529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee0a2cc75fe62447813fb089754685c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rawMove: {x: 0, y: 0}
-  rawView: {x: 0, y: 0}
   cameraHolder: {fileID: 1497286110}
   settings:
     ViewSens: {x: 20, y: 20}
@@ -1553,6 +1536,7 @@ MonoBehaviour:
     viewYInverted: 0
     yClampMax: 75
     yClampMin: -90
+    sprintFactor: 2
     forwardSpd: 6
     strafeSpd: 4
     backwardsSpd: 2
