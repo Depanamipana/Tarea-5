@@ -25,6 +25,11 @@ public static class Models{
         [Header("Jump")]
         public float jumpForce;
 
+        [Header("Shoot Settings")]
+        public float minForce;
+        public float maxForce;
+        public float maxHoldTime; //in seconds
+
     }
     #endregion
 }

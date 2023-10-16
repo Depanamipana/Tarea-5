@@ -18,16 +18,28 @@ public class CharacterCont : MonoBehaviour{
 
     [Header ("References")]
     public Transform cameraHolder;
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
 
     [Header ("Settings")]
     public PlayerSettingsModel settings;
 
+    //Shoot vars
+    private float holdTimer = 0f;
+    private bool charging = false;
+    private bool arrowShot = false;
+    private GameObject activeBullet;
+
     private void Awake(){
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         input = new InputLib();
 
         input.Character.Movement.performed += e => rawMove = e.ReadValue<Vector2>();
         input.Character.View.performed += e => rawView = e.ReadValue<Vector2>();
         input.Character.Jump.performed += e => Jump();
+        input.Character.Shoot.performed += e => Shoot(e.ReadValue<float>());
 
         input.Enable();
 
@@ -40,6 +52,7 @@ public class CharacterCont : MonoBehaviour{
         rawSprint = input.Character.Sprint.ReadValue<float>();
         CalculateView();
         CalcuteMovement();
+        ShootTimer();
     }
 
     private void CalcuteMovement(){
@@ -100,5 +113,33 @@ public class CharacterCont : MonoBehaviour{
             fallingSpeed = settings.jumpForce;
         }
         //jump
+    }
+
+    private void ShootTimer(){
+        if ((!charging) || (holdTimer == settings.maxHoldTime)) { return;}
+        holdTimer += Time.deltaTime;
+        if (holdTimer >= settings.maxHoldTime){
+            holdTimer = settings.maxHoldTime;
+        }
+    }
+
+    private void Shoot(float value){
+        if (arrowShot && value == 1) { //press when roped
+            activeBullet.BroadcastMessage("Pull");
+            activeBullet = null;
+        }else if(arrowShot && value == 0) { //release when roped
+            arrowShot = false;
+        }else if (value == 1){ //press
+            holdTimer = 0f;
+            charging = true;
+        }else if (value == 0){ //release
+            charging = false;
+            GameObject obj = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            Bullet bulletScript = obj.GetComponent<Bullet>();
+            bulletScript.force = Mathf.Lerp(settings.minForce , settings.maxForce , holdTimer / settings.maxHoldTime);
+            bulletScript.ropeOrigin = bulletSpawnPoint;
+            arrowShot = true;
+            activeBullet = obj;
+        }
     }
 }
