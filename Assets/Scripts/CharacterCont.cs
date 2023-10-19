@@ -30,6 +30,12 @@ public class CharacterCont : MonoBehaviour{
     private bool arrowShot = false;
     private GameObject activeBullet;
 
+    //Zoom vars
+    private bool zooming = false;
+    private Vector3 endPosition;
+    private GameObject leftOverBullet;
+    private float oldDistance2End;
+
     private void Awake(){
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -48,10 +54,14 @@ public class CharacterCont : MonoBehaviour{
         controllerComp = GetComponent<CharacterController>();
     }
 
-    private void Update(){
+    private void FixedUpdate(){
         rawSprint = input.Character.Sprint.ReadValue<float>();
         CalculateView();
-        CalcuteMovement();
+        if(!zooming){
+            CalcuteMovement();
+        }else{
+            ZoomMovement();
+        }
         ShootTimer();
     }
 
@@ -141,5 +151,24 @@ public class CharacterCont : MonoBehaviour{
             arrowShot = true;
             activeBullet = obj;
         }
+    }
+
+    //when you pull on a static wall and get flinged towards it
+    public void PullZoom(Vector3 endPoint, GameObject bullet){
+        zooming = true;
+        endPosition = endPoint;
+        leftOverBullet = bullet;
+        oldDistance2End = Mathf.Infinity;
+    }
+
+    private void ZoomMovement(){
+        Vector3 newMoveSpeed = ((endPosition - transform.position).normalized) * Time.deltaTime * settings.pullVelocity;
+        controllerComp.Move(newMoveSpeed);
+        float newDistance = Vector3.Distance(transform.position,endPosition);
+        if (oldDistance2End - newDistance <= settings.zoomTolerance){
+            zooming = false;
+            Destroy(leftOverBullet);
+        }
+        oldDistance2End = newDistance;
     }
 }

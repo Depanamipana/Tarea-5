@@ -55,9 +55,15 @@ public class Bullet : MonoBehaviour{
     void Pull() {
         if (toPull != null){
             toPull.Pull();
+            Destroy(gameObject);
         }else{
-            Debug.Log("I HABE BEEN PULLED ONHO");
+            if (stuck){
+                //pull the player
+                GameObject.FindWithTag("Player").GetComponent<CharacterCont>().PullZoom(transform.position, gameObject);
+            }else{
+                //Debug.Log("Return the Projectile");
+                Destroy(gameObject);
+            }
         }
-        Destroy(gameObject);
     }
 }

@@ -30,6 +30,9 @@ public static class Models{
         public float maxForce;
         public float maxHoldTime; //in seconds
 
+        [Header("Pull")]
+        public float pullVelocity;
+        public float zoomTolerance; //the maximum ammount of movement during a pull for it to be considered over
     }
     #endregion
 }
