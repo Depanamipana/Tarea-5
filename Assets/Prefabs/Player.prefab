@@ -283,7 +283,7 @@ MonoBehaviour:
     backwardsSpd: 2
     terminalVelocity: -0.3
     gravity: 0.2
-    jumpForce: 0.05
+    jumpForce: 0.08
     minForce: 0.1
     maxForce: 2
     maxHoldTime: 2
