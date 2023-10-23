@@ -12,6 +12,7 @@ public class TurnToRB : MonoBehaviour{
     void Update(){
         if (rb == null) {return;}
         if (rb.constraints == RigidbodyConstraints.FreezeAll) {return;}
+        if (rb.velocity.magnitude == 0) {return;}
         transform.forward = rb.velocity;
 
     }
