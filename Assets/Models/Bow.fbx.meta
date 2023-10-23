@@ -3,12 +3,7 @@ guid: 20346368f5e2fd24a9f187ef7eda02b0
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Featherback
-    second: {fileID: 2100000, guid: e19e98b31a9a089459a1fd71f6b8109b, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
