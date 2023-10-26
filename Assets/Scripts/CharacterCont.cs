@@ -8,6 +8,7 @@ public class CharacterCont : MonoBehaviour{
     private Vector2 rawMove;
     private Vector2 rawView;
     private float rawSprint;
+    public bool windUpDone;
 
     private Vector3 newCameraRotation;
     private Vector3 newPlayerRotation;
@@ -20,6 +21,7 @@ public class CharacterCont : MonoBehaviour{
     public Transform cameraHolder;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
+    public Animator animComp;
 
     [Header ("Settings")]
     public PlayerSettingsModel settings;
@@ -126,23 +128,29 @@ public class CharacterCont : MonoBehaviour{
     }
 
     private void ShootTimer(){
-        if ((!charging) || (holdTimer == settings.maxHoldTime)) { return;}
+        if ((!charging) || (holdTimer == settings.maxHoldTime) || (!windUpDone)) { return;}
         holdTimer += Time.deltaTime;
+        animComp.SetFloat("Strength",holdTimer/settings.maxHoldTime);
         if (holdTimer >= settings.maxHoldTime){
             holdTimer = settings.maxHoldTime;
+            animComp.SetFloat("Strength",1f);
         }
     }
 
     private void Shoot(float value){
         if (arrowShot && value == 1) { //press when roped
+            animComp.SetTrigger("Rope");
             activeBullet.BroadcastMessage("Pull");
             activeBullet = null;
         }else if(arrowShot && value == 0) { //release when roped
             arrowShot = false;
         }else if (value == 1){ //press
+            animComp.SetTrigger("Pull");
             holdTimer = 0f;
             charging = true;
         }else if (value == 0){ //release
+            animComp.SetTrigger("Release");
+            animComp.SetFloat("Strength",0f);
             charging = false;
             GameObject obj = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             Bullet bulletScript = obj.GetComponent<Bullet>();
