@@ -9,6 +9,7 @@ public class CharacterCont : MonoBehaviour{
     private Vector2 rawView;
     private float rawSprint;
     public bool windUpDone;
+    public bool albert;
 
     private Vector3 newCameraRotation;
     private Vector3 newPlayerRotation;
@@ -183,13 +184,25 @@ public class CharacterCont : MonoBehaviour{
         oldDistance2End = newDistance;
     }
 
-    private void Pause(){
+    public void Pause(){
         if (Time.timeScale == 1f){
             Time.timeScale = 0f;
             pausePanel.SetActive(true);
-        }else{
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else{
             Time.timeScale = 1f;
             pausePanel.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    private void OnTriggerEnter(Collider coll){
+        if (coll.tag == "Albert"){
+            albert = true;
+            coll.gameObject.SetActive(false);   
         }
     }
 }
