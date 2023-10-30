@@ -194,9 +194,10 @@ public class CharacterCont : MonoBehaviour{
         }
     }
 
-    private OnCollisionEnter(Collision coll){
+    private void OnTriggerEnter(Collider coll){
         if (coll.tag == "Albert"){
             albert = true;
+            coll.gameObject.SetActive(false);   
         }
     }
 }
