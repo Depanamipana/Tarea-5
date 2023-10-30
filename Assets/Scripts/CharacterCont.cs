@@ -184,13 +184,18 @@ public class CharacterCont : MonoBehaviour{
         oldDistance2End = newDistance;
     }
 
-    private void Pause(){
+    public void Pause(){
         if (Time.timeScale == 1f){
             Time.timeScale = 0f;
             pausePanel.SetActive(true);
-        }else{
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else{
             Time.timeScale = 1f;
             pausePanel.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
