@@ -43,7 +43,9 @@ public class EnemyController : MonoBehaviour{
                     }else{
                         Vector3 moveSpeed = (end - origin).normalized * speed * Time.deltaTime;
                         controllerComp.Move(moveSpeed);
-                        transform.forward = moveSpeed;
+                        if (moveSpeed.magnitude != 0f) {
+                            transform.forward = moveSpeed;
+                        }
                         timer -= Time.deltaTime;
                         if (timer <= 0f){
                             resting = true;

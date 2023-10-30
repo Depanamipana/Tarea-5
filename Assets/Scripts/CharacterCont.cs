@@ -22,6 +22,7 @@ public class CharacterCont : MonoBehaviour{
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
     public Animator animComp;
+    public GameObject pausePanel;
 
     [Header ("Settings")]
     public PlayerSettingsModel settings;
@@ -48,6 +49,7 @@ public class CharacterCont : MonoBehaviour{
         input.Character.View.performed += e => rawView = e.ReadValue<Vector2>();
         input.Character.Jump.performed += e => Jump();
         input.Character.Shoot.performed += e => Shoot(e.ReadValue<float>());
+        input.Character.Pause.performed += e => Pause();
 
         input.Enable();
 
@@ -119,7 +121,7 @@ public class CharacterCont : MonoBehaviour{
     //when jump stuff pressed
     private void Jump(){
         //don't jump
-        if(!controllerComp.isGrounded){
+        if((!controllerComp.isGrounded) ||(Time.timeScale == 0f)){
             return;
         }else{
             fallingSpeed = settings.jumpForce;
@@ -138,6 +140,7 @@ public class CharacterCont : MonoBehaviour{
     }
 
     private void Shoot(float value){
+        if (Time.timeScale == 0f) { return;}
         if (arrowShot && value == 1) { //press when roped
             animComp.SetTrigger("Rope");
             activeBullet.BroadcastMessage("Pull");
@@ -178,5 +181,15 @@ public class CharacterCont : MonoBehaviour{
             Destroy(leftOverBullet);
         }
         oldDistance2End = newDistance;
+    }
+
+    private void Pause(){
+        if (Time.timeScale == 1f){
+            Time.timeScale = 0f;
+            pausePanel.SetActive(true);
+        }else{
+            Time.timeScale = 1f;
+            pausePanel.SetActive(false);
+        }
     }
 }
