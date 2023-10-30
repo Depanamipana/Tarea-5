@@ -9,6 +9,7 @@ public class CharacterCont : MonoBehaviour{
     private Vector2 rawView;
     private float rawSprint;
     public bool windUpDone;
+    public bool albert;
 
     private Vector3 newCameraRotation;
     private Vector3 newPlayerRotation;
@@ -190,6 +191,12 @@ public class CharacterCont : MonoBehaviour{
         }else{
             Time.timeScale = 1f;
             pausePanel.SetActive(false);
+        }
+    }
+
+    private OnCollisionEnter(Collision coll){
+        if (coll.tag == "Albert"){
+            albert = true;
         }
     }
 }
