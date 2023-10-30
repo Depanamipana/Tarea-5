@@ -48,6 +48,7 @@ public class CharacterCont : MonoBehaviour{
         input.Character.View.performed += e => rawView = e.ReadValue<Vector2>();
         input.Character.Jump.performed += e => Jump();
         input.Character.Shoot.performed += e => Shoot(e.ReadValue<float>());
+        input.Character.Pause.performed += e => Pause();
 
         input.Enable();
 
@@ -178,5 +179,13 @@ public class CharacterCont : MonoBehaviour{
             Destroy(leftOverBullet);
         }
         oldDistance2End = newDistance;
+    }
+
+    private void Pause(){
+        if (Time.timeScale == 1f){
+            Time.timeScale = 0f;
+        }else{
+            Time.timeScale = 1f;
+        }
     }
 }
