@@ -2771,7 +2771,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7707354783758370319}
   - component: {fileID: 4329694836823071861}
-  - component: {fileID: 612805732}
   m_Layer: 0
   m_Name: PT_Male_Armors_Skeleton_Modular
   m_TagString: Untagged
@@ -2788,7 +2787,7 @@ Transform:
   m_GameObject: {fileID: 7043021768778521781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5101082717171219640}
@@ -2820,24 +2819,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!143 &612805732
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7043021768778521781}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.84
-  m_Radius: 0.25
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.92, z: 0}
 --- !u!1 &7112788683289761295
 GameObject:
   m_ObjectHideFlags: 0

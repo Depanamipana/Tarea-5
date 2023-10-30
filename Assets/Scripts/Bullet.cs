@@ -36,6 +36,7 @@ public class Bullet : MonoBehaviour{
     void OnCollisionEnter(Collision coll){
         gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         stuck = true;
+        transform.parent = coll.gameObject.transform;
         if (coll.gameObject.GetComponent<PullableEvent>() != null){
             toPull = coll.gameObject.GetComponent<PullableEvent>();
         }
