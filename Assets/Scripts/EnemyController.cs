@@ -27,6 +27,11 @@ public class EnemyController : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
+        {
+            Vector3 moveSpeed = Vector3.zero;
+            moveSpeed.y = -5 * Time.deltaTime;
+            controllerComp.Move(moveSpeed);
+        }
         Vector3 origin = Vector3.Scale(transform.position,new Vector3(1f,0f,1f));
         Vector3 end = Vector3.Scale(target.transform.position,new Vector3(1f,0f,1f));
         if (
@@ -42,10 +47,10 @@ public class EnemyController : MonoBehaviour{
                         animComp.SetTrigger("ATK");
                     }else{
                         Vector3 moveSpeed = (end - origin).normalized * speed * Time.deltaTime;
-                        controllerComp.Move(moveSpeed);
                         if (moveSpeed.magnitude != 0f) {
                             transform.forward = moveSpeed;
                         }
+                        controllerComp.Move(moveSpeed);
                         timer -= Time.deltaTime;
                         if (timer <= 0f){
                             resting = true;

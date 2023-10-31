@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Damage
   - Albert
+  - Loader
   layers:
   - Default
   - TransparentFX

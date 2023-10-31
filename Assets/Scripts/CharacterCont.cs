@@ -24,6 +24,7 @@ public class CharacterCont : MonoBehaviour{
     public Transform bulletSpawnPoint;
     public Animator animComp;
     public GameObject pausePanel;
+    public GameObject trophy;
 
     [Header ("Settings")]
     public PlayerSettingsModel settings;
@@ -202,7 +203,11 @@ public class CharacterCont : MonoBehaviour{
     private void OnTriggerEnter(Collider coll){
         if (coll.tag == "Albert"){
             albert = true;
-            coll.gameObject.SetActive(false);   
+            coll.gameObject.SetActive(false);
+            trophy.SetActive(true);
+        }
+        if (coll.tag == "Loader"){
+            coll.gameObject.GetComponent<PlayerTouchEvent>().Load();
         }
     }
 }
