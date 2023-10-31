@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour{
     public float health;
     public TMP_Text toUpdate;
     public UnityEvent OnDamageTaken;
-    public string MainMenu;
+    public UnityEvent OnDeath;
 
     void Start(){
         health = maxHealth;
@@ -49,6 +49,6 @@ public class PlayerHealth : MonoBehaviour{
     }
 
     public void Kill(){
-        SceneManager.LoadScene(MainMenu);
+        OnDeath?.Invoke();
     }
 }

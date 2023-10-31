@@ -13,6 +13,7 @@ public class StartGameOnClick : MonoBehaviour
         Button button = GetComponent<Button>();
 
         // Agregar un listener al botón que cargará la primera escena al hacer clic en él
+        button.onClick.AddListener(() => Time.timeScale = 1f);
         button.onClick.AddListener(() => SceneManager.LoadScene(firstSceneName));
     }
 }
